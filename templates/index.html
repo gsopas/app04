@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <p>Logged in as <b>{{ current_user.username }}</b> 
+      | <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+    <form method="post" action="{{ url_for('add_task') }}">
+        <input type="text" name="task" placeholder="Enter a new task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul class="task-list">
+        {% for task in tasks %}
+            <li>
+                {{ task.description }}
+                <a href="{{ url_for('delete_task', task_id=task.id) }}">[Delete]</a>
+            </li>
+        {% else %}
+            <li>No tasks yet!</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
